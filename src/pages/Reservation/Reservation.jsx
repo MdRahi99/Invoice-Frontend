@@ -1,26 +1,42 @@
-import Loader from "../../components/Shared/Loader";
-import useCars from "../../hooks/useCars";
+import { useForm, FormProvider } from 'react-hook-form';
+import useCars from '../../hooks/useCars';
+import CustomerForm from '../../components/Forms/CustomerForm';
+import ReservationForm from '../../components/Forms/ReservationForm';
+import VehicleForm from '../../components/Forms/VehicleForm';
+import ChargesSummary from './ChargesSummary';
+import Loader from '../../components/Shared/Loader';
+import AdditionalCharges from './AdditionalCharges';
 
 const Reservation = () => {
+    const { cars, loading, error } = useCars();
+    const methods = useForm();
 
-    const {cars, loading, error} = useCars();
+    const onSubmit = data => {
+        console.log(data);
+    };
 
-    console.log(cars);
-
-    if(loading){
-        return <Loader />
-    }
-
-    if(error){
-        return <h1>Error</h1>
-    }
+    if (loading) return <Loader />;
+    if (error) return <div>Error: {error.message}</div>;
 
     return (
-        <div className="">
-            <div className="w-full flex items-center justify-between">
-                <h1 className="text-2xl font-bold">Reservation</h1>
-                <button className="px-4 py-2 bg-[#5D5CFF] text-white text-[14px] font-semibold rounded-md">Print / Download</button>
+        <div>
+            <div className='flex items-center justify-between pb-6'>
+                <h1 className="text-2xl font-bold mb-4">Reservation</h1>
+                <button type="submit" className="text-[14px] bg-[#5D5CFF] text-white py-2 px-4 rounded">
+                    Print / Download
+                </button>
             </div>
+            <FormProvider {...methods}>
+                <form onSubmit={methods.handleSubmit(onSubmit)}>
+                    <div className="grid grid-cols-3 gap-4">
+                        <ReservationForm />
+                        <CustomerForm />
+                        <ChargesSummary />
+                        <VehicleForm cars={cars} />
+                        <AdditionalCharges />
+                    </div>
+                </form>
+            </FormProvider>
         </div>
     );
 };
