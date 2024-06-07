@@ -4,9 +4,10 @@ import CustomerForm from '../../components/Forms/CustomerForm';
 import ReservationForm from '../../components/Forms/ReservationForm';
 import VehicleForm from '../../components/Forms/VehicleForm';
 import ChargesSummary from './ChargesSummary';
-import Loader from '../../components/Shared/Loader';
 import AdditionalCharges from './AdditionalCharges';
 import { useState } from 'react';
+import { toast, Toaster } from 'react-hot-toast';
+import useCreateReservation from '../../hooks/useCreateReservation';
 
 const additionalCharges = [
     {
@@ -29,18 +30,32 @@ const additionalCharges = [
 const Reservation = () => {
     const { cars, loading, error } = useCars();
     const methods = useForm();
+    const [totalCharge, setTotalCharge] = useState(0);
     const [selectedCar, setSelectedCar] = useState(null);
     const [selectedAdditionalCharges, setSelectedAdditionalCharges] = useState([]);
+    const {createReservation} = useCreateReservation();
 
-    const onSubmit = data => {
-        console.log(data);
+    const onSubmit = async (formData) => {
+        const formDataWithTotal = {
+            ...formData,
+            totalCharge: Number(totalCharge)
+        };
+
+        try {
+            await createReservation(formDataWithTotal);
+            toast.success('Reservation created successfully!');
+        } catch (error) {
+            toast.error('Failed to create reservation. Please try again.');
+            console.error('Error:', error);
+        }
     };
 
-    if (loading) return <Loader />;
+    if (loading) return <h1>Loading...</h1>;
     if (error) return <div>Error: {error.message}</div>;
 
     return (
         <div>
+            <Toaster />
             <div className='relative pb-6'>
                 <h1 className="text-2xl font-bold mb-4">Reservation</h1>
             </div>
@@ -50,6 +65,7 @@ const Reservation = () => {
                         <ReservationForm />
                         <CustomerForm />
                         <ChargesSummary
+                            setTotalCharge={setTotalCharge}
                             selectedCar={selectedCar}
                             selectedAdditionalCharges={selectedAdditionalCharges}
                         />

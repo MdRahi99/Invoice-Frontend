@@ -6,14 +6,13 @@ const AdditionalCharges = ({ additionalCharges, onAdditionalChargeChange }) => {
 
     const handleAdditionalChargeChange = (event) => {
         const { value, checked } = event.target;
-        const chargeId = parseInt(value, 10);
-        const selectedCharge = additionalCharges.find((charge) => charge.id === chargeId);
+        const selectedCharge = JSON.parse(value);
 
         onAdditionalChargeChange((prevSelectedCharges) => {
             if (checked) {
                 return [...prevSelectedCharges, selectedCharge];
             } else {
-                return prevSelectedCharges.filter((charge) => charge.id !== chargeId);
+                return prevSelectedCharges.filter((charge) => charge.id !== selectedCharge.id);
             }
         });
     };
@@ -28,7 +27,7 @@ const AdditionalCharges = ({ additionalCharges, onAdditionalChargeChange }) => {
                             type="checkbox"
                             id={`${charge.id}`}
                             className="mr-2"
-                            value={charge.id}
+                            value={JSON.stringify(charge)}
                             {...register(`additionalCharges`)}
                             onChange={handleAdditionalChargeChange}
                         />

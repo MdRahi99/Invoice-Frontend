@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-const ChargesSummary = ({ selectedCar, selectedAdditionalCharges }) => {
+const ChargesSummary = ({ selectedCar, selectedAdditionalCharges, setTotalCharge }) => {
     const calculateTotal = () => {
         let total = selectedCar ? selectedCar.rates.daily + selectedCar.rates.weekly : 0;
 
@@ -16,6 +16,7 @@ const ChargesSummary = ({ selectedCar, selectedAdditionalCharges }) => {
     };
 
     const total = calculateTotal();
+    setTotalCharge(total)
 
     return (
         <div className="mb-5">
@@ -31,7 +32,7 @@ const ChargesSummary = ({ selectedCar, selectedAdditionalCharges }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {selectedCar && (
+                        {selectedCar ? 
                             <>
                                 <tr>
                                     <td className="py-5">Daily</td>
@@ -46,7 +47,22 @@ const ChargesSummary = ({ selectedCar, selectedAdditionalCharges }) => {
                                     <td className="py-5 text-center">${selectedCar.rates.weekly.toFixed(2)}</td>
                                 </tr>
                             </>
-                        )}
+                            :
+                            <>
+                                <tr>
+                                    <td className="py-5">Daily</td>
+                                    <td className="py-5 text-center">1</td>
+                                    <td className="py-5 text-center">0</td>
+                                    <td className="py-5 text-center">0</td>
+                                </tr>
+                                <tr>
+                                    <td className="py-5">Weekly</td>
+                                    <td className="py-5 text-center">1</td>
+                                    <td className="py-5 text-center">0</td>
+                                    <td className="py-5 text-center">0</td>
+                                </tr>
+                            </>
+                        }
                         {selectedAdditionalCharges.map((charge) => (
                             <tr key={charge.id}>
                                 <td className="py-5">{charge.name}</td>

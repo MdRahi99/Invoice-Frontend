@@ -1,6 +1,7 @@
 import {createBrowserRouter} from "react-router-dom";
 import Main from "../layout/Main";
 import Reservation from "../pages/Reservation/Reservation";
+import Invoice from "../components/Invoice/Invoice";
 
 const router = createBrowserRouter([
     {
@@ -10,6 +11,10 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Reservation />
+            },
+            {
+                path: '/invoice',
+                element: <Invoice />
             }
         ]
     },
