@@ -27,7 +27,7 @@ const VehicleForm = ({ cars, onSelectCar }) => {
                     <div className="relative">
                         <select 
                             {...register('vehicleType', { required: 'Vehicle Type is required' })} 
-                            className={`w-full p-2 border ${errors.vehicleType ? 'border-red-500' : 'border-[#D7D7FF]'} focus:outline-none focus:border-${errors.vehicleType ? 'red-500' : '[#babaf9]'} rounded-md appearance-none`}
+                            className={`w-full p-[6px] border ${errors.vehicleType ? 'border-red-500' : 'border-[#D7D7FF]'} focus:outline-none focus:border-${errors.vehicleType ? 'red-500' : '[#babaf9]'} rounded-md appearance-none`}
                             onChange={handleTypeSelection}
                         >
                             <option value="">Select</option>
@@ -48,7 +48,7 @@ const VehicleForm = ({ cars, onSelectCar }) => {
                     <div className="relative">
                         <select 
                             {...register('vehicle', { required: 'Vehicle is required' })} 
-                            className={`w-full p-2 border ${errors.vehicle ? 'border-red-500' : 'border-[#D7D7FF]'} focus:outline-none focus:border-${errors.vehicle ? 'red-500' : '[#babaf9]'} rounded-md appearance-none`}
+                            className={`w-full p-[6px] border ${errors.vehicle ? 'border-red-500' : 'border-[#D7D7FF]'} focus:outline-none focus:border-${errors.vehicle ? 'red-500' : '[#babaf9]'} rounded-md appearance-none`}
                             onChange={(e) => handleCarSelection(e.target.value)}
                         >
                             <option value="">Select</option>

@@ -19,7 +19,7 @@ const ReservationForm = () => {
                     <input
                         type="text"
                         {...register('id')}
-                        className="w-full p-2 border border-[#D7D7FF] focus:outline-none focus:border-[#babaf9] rounded bg-gray-100 cursor-not-allowed"
+                        className="w-full p-[6px] border border-[#D7D7FF] focus:outline-none focus:border-[#babaf9] rounded bg-gray-100 cursor-not-allowed"
                         disabled
                     />
                 </div>
@@ -29,18 +29,18 @@ const ReservationForm = () => {
                         <input
                             type="datetime-local"
                             {...register(field, { required: `${field.charAt(0).toUpperCase() + field.slice(1).replace('Date', ' Date')} is required` })}
-                            className={`w-full p-2 border ${errors[field] ? 'border-red-500' : 'border-[#D7D7FF]'} focus:outline-none focus:border-${errors[field] ? 'red-500' : '[#babaf9]'} rounded`}
+                            className={`w-full p-[6px] border ${errors[field] ? 'border-red-500' : 'border-[#D7D7FF]'} focus:outline-none focus:border-${errors[field] ? 'red-500' : '[#babaf9]'} rounded`}
                         />
                         {errors[field] && <p className="text-red-500 text-sm mt-1">{errors[field].message}</p>}
                     </div>
                 ))}
                 <div className="flex items-center gap-6">
-                    <div className="w-full">
-                        <label className="block mb-2">Duration</label>
+                    <div className="w-full flex items-center gap-4 lg:gap-16">
+                        <label className="mb-2">Duration</label>
                         <input
                             type="text"
                             {...register('duration')}
-                            className="w-full p-2 border border-[#D7D7FF] focus:outline-none focus:border-[#babaf9] rounded"
+                            className="w-full p-[6px] border border-[#D7D7FF] focus:outline-none focus:border-[#babaf9] rounded"
                         />
                     </div>
                 </div>
@@ -49,7 +49,7 @@ const ReservationForm = () => {
                     <input
                         type="text"
                         {...register('discount')}
-                        className="w-full p-2 border border-[#D7D7FF] focus:outline-none focus:border-[#babaf9] rounded"
+                        className="w-full p-[6px] border border-[#D7D7FF] focus:outline-none focus:border-[#babaf9] rounded"
                     />
                 </div>
             </div>

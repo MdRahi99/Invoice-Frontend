@@ -27,7 +27,7 @@ const CustomerForm = () => {
                                     }
                                 })
                             })}
-                            className={`w-full p-2 border ${errors[field] ? 'border-red-500' : 'border-[#D7D7FF]'} focus:outline-none focus:border-${errors[field] ? 'red-500' : '[#babaf9]'} rounded`}
+                            className={`w-full p-[6px] border ${errors[field] ? 'border-red-500' : 'border-[#D7D7FF]'} focus:outline-none focus:border-${errors[field] ? 'red-500' : '[#babaf9]'} rounded`}
                         />
                         {errors[field] && <p className="text-red-500 text-sm mt-1">{errors[field].message}</p>}
                     </div>
