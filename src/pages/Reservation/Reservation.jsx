@@ -8,6 +8,7 @@ import AdditionalCharges from './AdditionalCharges';
 import { useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import useCreateReservation from '../../hooks/useCreateReservation';
+import Loader from '../../components/Shared/Loader';
 
 const additionalCharges = [
     {
@@ -33,7 +34,9 @@ const Reservation = () => {
     const [totalCharge, setTotalCharge] = useState(0);
     const [selectedCar, setSelectedCar] = useState(null);
     const [selectedAdditionalCharges, setSelectedAdditionalCharges] = useState([]);
-    const {createReservation} = useCreateReservation();
+    const { createReservation } = useCreateReservation();
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [reservationId, setReservationId] = useState(null);
 
     const onSubmit = async (formData) => {
         const formDataWithTotal = {
@@ -42,15 +45,17 @@ const Reservation = () => {
         };
 
         try {
-            await createReservation(formDataWithTotal);
+            const response = await createReservation(formDataWithTotal);
             toast.success('Reservation created successfully!');
+            setIsSubmitted(true);
+            setReservationId(response._id); 
         } catch (error) {
             toast.error('Failed to create reservation. Please try again.');
             console.error('Error:', error);
         }
     };
 
-    if (loading) return <h1>Loading...</h1>;
+    if (loading) return <Loader />;
     if (error) return <div>Error: {error.message}</div>;
 
     return (
@@ -76,9 +81,22 @@ const Reservation = () => {
                         />
                     </div>
 
-                    <button type="submit" className="text-[14px] absolute top-6 right-10 bg-[#5D5CFF] text-white py-[5px] font-medium hover:bg-[#4b4bf4] px-4 rounded">
-                        Print / Download
-                    </button>
+                    {isSubmitted ? (
+                        <button 
+                            type="button" 
+                            className="text-[14px] absolute top-6 right-10 bg-[#5D5CFF] text-white py-[5px] font-medium hover:bg-[#4b4bf4] px-4 rounded"
+                            onClick={() => window.location.href = `/invoice/${reservationId}`}
+                        >
+                            Print / Download
+                        </button>
+                    ) : (
+                        <button 
+                            type="submit" 
+                            className="text-[14px] absolute top-6 right-10 bg-[#5D5CFF] text-white py-[5px] font-medium hover:bg-[#4b4bf4] px-4 rounded"
+                        >
+                            Submit
+                        </button>
+                    )}
                 </form>
             </FormProvider>
         </div>

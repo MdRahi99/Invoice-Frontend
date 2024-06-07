@@ -13,7 +13,7 @@ const router = createBrowserRouter([
                 element: <Reservation />
             },
             {
-                path: '/invoice',
+                path: '/invoice/:id',
                 element: <Invoice />
             }
         ]
