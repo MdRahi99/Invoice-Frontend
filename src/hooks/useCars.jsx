@@ -23,8 +23,6 @@ const useCars = () => {
         fetchCars();
     }, []);
 
-    console.log(cars);
-
     return { cars, loading, error };
 };
 

@@ -20,21 +20,22 @@ const Reservation = () => {
 
     return (
         <div>
-            <div className='flex items-center justify-between pb-6'>
+            <div className='relative pb-6'>
                 <h1 className="text-2xl font-bold mb-4">Reservation</h1>
-                <button type="submit" className="text-[14px] bg-[#5D5CFF] text-white py-2 px-4 rounded">
-                    Print / Download
-                </button>
             </div>
             <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 gap-x-6">
                         <ReservationForm />
                         <CustomerForm />
                         <ChargesSummary />
                         <VehicleForm cars={cars} />
                         <AdditionalCharges />
                     </div>
+
+                    <button type="submit" className="text-[14px] absolute top-6 right-10 bg-[#5D5CFF] text-white py-[5px] font-medium hover:bg-[#4b4bf4] px-4 rounded">
+                        Print / Download
+                    </button>
                 </form>
             </FormProvider>
         </div>
