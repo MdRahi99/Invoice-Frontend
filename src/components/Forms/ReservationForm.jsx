@@ -35,12 +35,13 @@ const ReservationForm = () => {
                     </div>
                 ))}
                 <div className="flex items-center gap-6">
-                    <div className="w-full flex items-center gap-4 lg:gap-16">
+                    <div className="w-full flex items-center gap-4 lg:gap-20">
                         <label className="mb-2">Duration</label>
                         <input
                             type="text"
                             {...register('duration')}
-                            className="w-full p-[6px] border border-[#D7D7FF] focus:outline-none focus:border-[#babaf9] rounded"
+                            placeholder='1 week 1 Day'
+                            className="w-full p-[6px] text-gray-300 text-center border border-[#D7D7FF] focus:outline-none focus:border-[#babaf9] rounded"
                         />
                     </div>
                 </div>
