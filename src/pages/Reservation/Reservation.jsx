@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import useCreateReservation from '../../hooks/useCreateReservation';
 import Loader from '../../components/Shared/Loader';
+import { Link } from 'react-router-dom';
 
 const additionalCharges = [
     {
@@ -48,7 +49,7 @@ const Reservation = () => {
             const response = await createReservation(formDataWithTotal);
             toast.success('Reservation created successfully!');
             setIsSubmitted(true);
-            setReservationId(response._id); 
+            setReservationId(response._id);
         } catch (error) {
             toast.error('Failed to create reservation. Please try again.');
             console.error('Error:', error);
@@ -82,16 +83,17 @@ const Reservation = () => {
                     </div>
 
                     {isSubmitted ? (
-                        <button 
-                            type="button" 
+                        <button
+                            type="button"
                             className="text-[14px] absolute top-6 right-10 bg-[#5D5CFF] text-white py-[5px] font-medium hover:bg-[#4b4bf4] px-4 rounded"
-                            onClick={() => window.location.href = `/invoice/${reservationId}`}
                         >
-                            Print / Download
+                            <Link to={`/invoice/${reservationId}`} className="text-white">
+                                Print / Download
+                            </Link>
                         </button>
                     ) : (
-                        <button 
-                            type="submit" 
+                        <button
+                            type="submit"
                             className="text-[14px] absolute top-6 right-10 bg-[#5D5CFF] text-white py-[5px] font-medium hover:bg-[#4b4bf4] px-4 rounded"
                         >
                             Submit

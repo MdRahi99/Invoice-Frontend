@@ -40,8 +40,7 @@ const ReservationForm = () => {
                         <input
                             type="text"
                             {...register('duration')}
-                            placeholder='1 week 1 Day'
-                            className="w-full p-[6px] text-gray-300 text-center border border-[#D7D7FF] focus:outline-none focus:border-[#babaf9] rounded"
+                            className="w-full p-[6px] text-center border border-[#D7D7FF] focus:outline-none focus:border-[#babaf9] rounded"
                         />
                     </div>
                 </div>
