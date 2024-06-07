@@ -1,11 +1,21 @@
 /* eslint-disable react/prop-types */
+import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-const VehicleForm = ({ cars }) => {
+const VehicleForm = ({ cars, onSelectCar }) => {
     const { register, formState: { errors } } = useFormContext();
+    const [selectedType, setSelectedType] = useState('');
 
-    const vehicleTypes = Array.from(new Set(cars.map(car => car.type)));
-    const vehicleModels = Array.from(new Set(cars.map(car => car.model)));
+    const handleTypeSelection = (e) => {
+        setSelectedType(e.target.value);
+    };
+
+    const handleCarSelection = (carId) => {
+        const selectedCar = cars.find(car => car.id === carId);
+        onSelectCar(selectedCar);
+    };
+
+    const filteredCars = selectedType ? cars.filter(car => car.type === selectedType) : cars;
 
     return (
         <div className="mb-5">
@@ -18,9 +28,10 @@ const VehicleForm = ({ cars }) => {
                         <select 
                             {...register('vehicleType', { required: 'Vehicle Type is required' })} 
                             className={`w-full p-2 border ${errors.vehicleType ? 'border-red-500' : 'border-[#D7D7FF]'} focus:outline-none focus:border-${errors.vehicleType ? 'red-500' : '[#babaf9]'} rounded-md appearance-none`}
+                            onChange={handleTypeSelection}
                         >
                             <option value="">Select</option>
-                            {vehicleTypes.map((type, index) => (
+                            {[...new Set(cars.map(car => car.type))].map((type, index) => (
                                 <option key={index} value={type}>{type}</option>
                             ))}
                         </select>
@@ -38,10 +49,11 @@ const VehicleForm = ({ cars }) => {
                         <select 
                             {...register('vehicle', { required: 'Vehicle is required' })} 
                             className={`w-full p-2 border ${errors.vehicle ? 'border-red-500' : 'border-[#D7D7FF]'} focus:outline-none focus:border-${errors.vehicle ? 'red-500' : '[#babaf9]'} rounded-md appearance-none`}
+                            onChange={(e) => handleCarSelection(e.target.value)}
                         >
                             <option value="">Select</option>
-                            {vehicleModels.map((model, index) => (
-                                <option key={index} value={model}>{model}</option>
+                            {filteredCars.map((car, index) => (
+                                <option key={index} value={car.id}>{car.make} {car.model}</option>
                             ))}
                         </select>
                         {errors.vehicle && <p className="text-red-500 text-sm mt-1">{errors.vehicle.message}</p>}
