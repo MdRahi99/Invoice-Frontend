@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -47,6 +48,10 @@ const Invoice = () => {
         { item: "TOTAL ESTIMATED CHARGES", unitPrice: "", amount: "$0.56" },
         { item: "Renter Payments", unitPrice: "", amount: "$0.56" }
     ];
+
+    const handlePrint = () => {
+        window.print();
+    };
 
     return (
         <div className="max-w-5xl mx-auto p-4">
@@ -135,6 +140,9 @@ const Invoice = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="mt-4">
+                <button onClick={handlePrint} className="bg-blue-500 text-white py-2 px-4 rounded">Print</button>
             </div>
         </div>
     );
