@@ -1,14 +1,32 @@
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 import { useEffect } from 'react';
 import generateUniqueId from '../../components/GenerateUniqueId/GenerateUniqueId';
 
 const ReservationForm = () => {
-    const { register, setValue, formState: { errors } } = useFormContext();
+    const { register, setValue, formState: { errors }, control } = useFormContext();
+
+    // Watch pickupDate and returnDate fields
+    const pickupDate = useWatch({ control, name: 'pickupDate' });
+    const returnDate = useWatch({ control, name: 'returnDate' });
 
     useEffect(() => {
         const uniqueId = generateUniqueId();
         setValue('id', uniqueId);
     }, [setValue]);
+
+    useEffect(() => {
+        if (pickupDate && returnDate) {
+            const pickup = new Date(pickupDate);
+            const returnD = new Date(returnDate);
+
+            if (pickup <= returnD) {
+                const duration = Math.ceil((returnD - pickup) / (1000 * 60 * 60 * 24));
+                setValue('duration', duration);
+            } else {
+                setValue('duration', 0);
+            }
+        }
+    }, [pickupDate, returnDate, setValue]);
 
     return (
         <div className="mb-5">
@@ -40,7 +58,9 @@ const ReservationForm = () => {
                         <input
                             type="number"
                             {...register('duration')}
+                            placeholder='Days'
                             className="w-full p-[6px] text-center border border-[#D7D7FF] focus:outline-none focus:border-[#babaf9] rounded"
+                            readOnly
                         />
                     </div>
                 </div>
