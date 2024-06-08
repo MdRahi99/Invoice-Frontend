@@ -38,7 +38,7 @@ const ReservationForm = () => {
                     <div className="w-full flex items-center gap-4 lg:gap-20">
                         <label className="mb-2">Duration</label>
                         <input
-                            type="text"
+                            type="number"
                             {...register('duration')}
                             className="w-full p-[6px] text-center border border-[#D7D7FF] focus:outline-none focus:border-[#babaf9] rounded"
                         />
@@ -47,7 +47,7 @@ const ReservationForm = () => {
                 <div className="">
                     <label className="block mb-2">Discount</label>
                     <input
-                        type="text"
+                        type="number"
                         {...register('discount')}
                         className="w-full p-[6px] border border-[#D7D7FF] focus:outline-none focus:border-[#babaf9] rounded"
                     />
